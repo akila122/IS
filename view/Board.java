@@ -8,12 +8,14 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
 import java.awt.Toolkit;
+import java.util.LinkedList;
 
 import javax.swing.JFrame;
 
 import exceptions.InvalidConnectionException;
 import exceptions.InvalidGameInitException;
 import model.Game;
+import model.Move;
 import model.Point;
 
 public class Board extends JFrame {
@@ -29,18 +31,15 @@ public class Board extends JFrame {
 	private int BLOCK_SIZE;
 	private int BOARD_WIDTH,BOARD_HEIGHT;
 	private int POINT_SIZE;
+	private boolean shouldDraw;
+	private LinkedList<Move> moves;
 	
 	public Board(Game myGame){
 		
 		this.myGame = myGame;
 		n = myGame.getN();
 		m = myGame.getM();
-		
 		getContentPane().setBackground(Color.white);
-		
-		
-		
-		
 		setResizable(false);
 		setTitle("Dots & Boxes");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -69,9 +68,47 @@ public class Board extends JFrame {
 		drawDots(g);
 		drawScore(g);
 		
+		if(this.moves != null)
+			drawHeuristics(g);
+		
 		
 	}
 	
+	public void setShouldDraw(boolean b) {
+		this.shouldDraw = b;
+	}
+	
+	private void drawHeuristics(Graphics g) {
+		
+		
+		Font old = g.getFont();
+		Color oldC = g.getColor();
+		g.setFont(new Font("Century Gothic", Font.BOLD, BLOCK_SIZE/16)); 
+		g.setColor(myGame.getGameTurn() == Game.TurnType.BLUE_TURN ? ClrBlue : ClrRed);
+		
+		for(Move move : moves) {
+			
+			
+			int x = (int) (BLOCK_SIZE * 1.5) - POINT_SIZE/2;
+			int y = (int) (BLOCK_SIZE * 1.5) - POINT_SIZE/2;
+			
+			x += move.getxPoint()*BLOCK_SIZE;
+			y += move.getyPoint()*BLOCK_SIZE;
+			
+			
+			if(move.getMoveType() == Move.MoveType.RIGHT)
+				x += BLOCK_SIZE / 1.5;
+			else y += BLOCK_SIZE / 1.5;
+			
+			g.drawString(move.getHeur()+"", x, y);
+		}
+		
+		g.setFont(old);
+		g.setColor(oldC);
+		
+		
+	}
+
 	private void drawScore(Graphics g) {
 		
 		g.setColor(ClrBlue);
@@ -243,6 +280,11 @@ public class Board extends JFrame {
 		
 		Board board = new Board(game);
 		board.setVisible(true);
+	}
+
+	public void setMoves(LinkedList<Move> moves) {
+		this.moves = moves;
+		
 	}
 	
 }

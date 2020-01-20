@@ -92,7 +92,7 @@ public class MinMaxAB {
 	}
 	
 	
-	private static int evaluate(Game game,Player player) {
+	public static int evaluate(Game game,Player player) {
 		return player.getMyType() == Game.TurnType.BLUE_TURN ? game.getBluePoints() : game.getRedPoints();
 			
 	}

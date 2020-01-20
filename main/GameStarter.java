@@ -89,8 +89,6 @@ public class GameStarter {
 
 			Board board = new Board(game);
 			InputFrame inFrame = new InputFrame();
-
-		
 			
 			playerRed = RType.equals("Human") ? new Human(Game.TurnType.RED_TURN, inFrame)
 					: new Computer(Game.TurnType.RED_TURN, game, RMode,inFrame,stepMode,treeDepth);
@@ -100,7 +98,9 @@ public class GameStarter {
 
 			MoveHistory mh = new MoveHistory();
 			
-			GameController controller = new GameController(playerRed, playerBlue, game, board,mh);
+			boolean drawHeuristics = (RType.equals("Computer") || BType.equals("Computer")) && stepMode;
+			
+			GameController controller = new GameController(playerRed, playerBlue, game, board,mh,drawHeuristics);
 			
 			inFrame.setGc(controller);
 			

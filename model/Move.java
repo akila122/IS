@@ -7,6 +7,17 @@ public class Move {
 	public enum MoveType {DOWN, UP, LEFT, RIGHT};
 	
 	private int xPoint,yPoint;
+	
+	private int heur;
+	
+	public void setHeur(int heur) {
+		this.heur = heur;
+	}
+	
+	public int getHeur() {
+		return heur;
+	}
+	
 	public int getxPoint() {
 		return xPoint;
 	}

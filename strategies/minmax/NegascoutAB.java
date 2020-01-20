@@ -90,7 +90,7 @@ public class NegascoutAB {
 	}
 	
 	
-	private static int evaluate(Game game,Player player) {
+	public static int evaluate(Game game,Player player) {
 		int ret = player.getMyType() == Game.TurnType.BLUE_TURN ? game.getBluePoints() : game.getRedPoints();
 		
 		int chain = game.getChain();

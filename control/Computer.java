@@ -33,6 +33,10 @@ public class Computer extends Player {
 													  new ExpertStrategy(game,this);
 	}
 
+	public Strategy getStrategy() {
+		return strategy;
+	}
+	
 	@Override
 	public Move makeMove() {
 		

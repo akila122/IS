@@ -8,12 +8,12 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTextArea;
 import java.awt.Font;
+import javax.swing.JScrollPane;
 
 public class MoveHistory extends JFrame {
-
-	JTextArea textArea;
 	
 	private JPanel contentPane;
+	JTextArea textArea;
 
 	/**
 	 * Launch the application.
@@ -45,10 +45,13 @@ public class MoveHistory extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
+		JScrollPane scrollPane = new JScrollPane();
+		contentPane.add(scrollPane, BorderLayout.CENTER);
+		
 		textArea = new JTextArea();
-		textArea.setFont(new Font("Century Gothic", Font.ITALIC, 20));
+		textArea.setFont(new Font("Century Gothic", Font.BOLD | Font.ITALIC, 16));
 		textArea.setEditable(false);
-		contentPane.add(textArea, BorderLayout.CENTER);
+		scrollPane.setViewportView(textArea);
 	}
 
 }
